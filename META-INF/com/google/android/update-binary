@@ -7,7 +7,7 @@ SCREEN=/proc/self/fd/$2
 ZIPFILE="$3"
 
 # Пути к устройствам и файлам
-device="/dev/block/mmcblk0"
+device="/dev/block/sdc"
 sgdisk="/tmp/sgdisk"
 boot="/tmp/boot.img"
 
@@ -22,6 +22,7 @@ ui_print " "
 ui_print "=========================================="
 ui_print "         Repartitioning partitions        "
 ui_print "                 By isus203               "
+ui_print "       Adapt for X695C By excaliburXD     "
 ui_print "=========================================="
 ui_print " "
 }
@@ -72,7 +73,7 @@ issuance_of_permits() {
 
 # Переразметка
 re-markup() {
-    ui_print "Repartition boot"
+    ui_print "Repartition boot 96MiB"
     $sgdisk $device -d 34 -d 35 -n 34:158976:183551 -c 34:boot_a -t 34:0700
     check_error
     $sgdisk $device -d 50 -d 51 -n 50:267520:292095 -c 50:boot_b -t 50:0700
