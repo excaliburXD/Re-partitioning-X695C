@@ -76,14 +76,6 @@ Command to get an ADB log:
 adb logcat > log.txt
 
 </details>
-Downloads
-Recovery
-This recovery is mentioned for compatibility but may have issues.
-> [!NOTE]
-> Recovery Warning: On new firmware, there is a chance of Wi-Fi and Bluetooth breaking. This recovery is not recommended for permanent daily use.
 
->  * File: Orange_Fox.img
-> 
-Partitioning Scripts
 Credits
  * Thanks to alekseystarikov for testing the archive.
