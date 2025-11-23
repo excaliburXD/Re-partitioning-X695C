@@ -5,7 +5,7 @@
 # Версия: 1.3
 # Автор: isus203
 # Дата создания: 29.07.2024г
-# Дата обновление: 15.11.2025г
+# Дата обновление: 17.11.2025г
 #-----------------------------------------------------------------------
 
 
@@ -14,7 +14,7 @@ OUTFD="/proc/self/fd/$2"
 ZIPFILE="$3"
 
 # Пути к устройству и временным файлам
-DEVICE="/dev/block/mmcblk0"
+DEVICE="/dev/block/sdc"
 SGDISK="/tmp/sgdisk"
 BOOT_IMG="/tmp/boot.img"
 LOGFILE="/external_sd/repartition.log"
@@ -35,6 +35,7 @@ display_banner() {
     ui_print "=========================================="
     ui_print "     Repartition Boot + GPT Backup installer"
     ui_print "                By isus203 (v1.3)              "
+    ui_print "       Adapt for X695C By excaliburXD     "
     ui_print "=========================================="
     ui_print ""
 }
@@ -123,8 +124,8 @@ chmod 755 "$SGDISK"
 chmod 644 "$BOOT_IMG"
 
 "$SGDISK" -l /tmp/gpt_backup.bin "$DEVICE"
-dd if=/tmp/boot_a.img of=/dev/block/by-name/boot_a bs=4M
-dd if=/tmp/boot_a.img of=/dev/block/by-name/boot_b bs=4M
+dd if=/tmp/boot_a.img of=/dev/block/by-name/boot_a
+dd if=/tmp/boot_a.img of=/dev/block/by-name/boot_b
 ui_print "Recovery complete"
 exit 0
 EOF
@@ -147,10 +148,10 @@ chmod +x "$BACKUP_DIR/META-INF/com/google/android/update-script"
 
 # Переразметка boot
 repartition_boot() {
-    ui_print "Re-marking boot..."
-      "$SGDISK" "$DEVICE" -d 30 -d 31 -n 30:1003520:1200127 -c 30:boot_a -t 30:0700
+    ui_print "Re-marking boot..."   
+      "$SGDISK" "$DEVICE" -d 34 -d 35 -n 34:158976:183551 -c 34:boot_a -t 34:0700
     if [ $? -ne 0 ]; then exit 1; fi
-      "$SGDISK" "$DEVICE" -d 43 -d 44 -n 43:1708032:1904639 -c 43:boot_b -t 43:0700
+      "$SGDISK" "$DEVICE" -d 50 -d 51 -n 50:267520:292095 -c 50:boot_b -t 50:0700
     if [ $? -ne 0 ]; then exit 1; fi
       "$SGDISK" "$DEVICE" -s
     if [ $? -ne 0 ]; then exit 1; fi
